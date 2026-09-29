@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Payment Successful | Premium Store</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, 'Inter', sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at 10% 20%, #0a0f1e, #03060c);
+            min-height: 100vh;
+            color: #eef5ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+        }
+
+        .glass-panel {
+            background: rgba(10, 20, 35, 0.8);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(0, 200, 255, 0.35);
+            border-radius: 2rem;
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.75),
+                        0 0 0 1px rgba(0, 200, 255, 0.15),
+                        0 0 60px -20px rgba(0, 180, 255, 0.5);
+            padding: 2.5rem 2rem;
+            max-width: 520px;
+            width: 100%;
+            text-align: center;
+            animation: pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes pop {
+            from { opacity: 0; transform: scale(0.9) translateY(20px); }
+            to   { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1.2rem;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #1fd97a, #0a9a4f);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 0 8px rgba(31, 217, 122, 0.15),
+                        0 0 40px rgba(31, 217, 122, 0.6);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 8px rgba(31, 217, 122, 0.15), 0 0 40px rgba(31, 217, 122, 0.6); }
+            50%      { box-shadow: 0 0 0 14px rgba(31, 217, 122, 0.08), 0 0 55px rgba(31, 217, 122, 0.85); }
+        }
+
+        .success-icon svg {
+            width: 55px;
+            height: 55px;
+            stroke: white;
+            stroke-width: 6;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: draw 0.7s ease-out 0.3s forwards;
+        }
+
+        @keyframes draw {
+            to { stroke-dashoffset: 0; }
+        }
+
+        h1 {
+            font-size: 1.9rem;
+            font-weight: 800;
+            background: linear-gradient(120deg, #7dffb0, #ffffff, #8bd4ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.4rem;
+        }
+
+        .subtitle {
+            color: #9ab3d5;
+            font-size: 0.95rem;
+            margin-bottom: 1.6rem;
+        }
+
+        .order-card {
+            background: linear-gradient(145deg, #0e1625, #070b14);
+            border: 1px solid rgba(0, 180, 255, 0.25);
+            border-radius: 1.5rem;
+            padding: 1.4rem 1.5rem;
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+
+        .order-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.7rem 0;
+            border-bottom: 1px dashed rgba(90, 130, 180, 0.25);
+            font-size: 0.95rem;
+        }
+
+        .order-row:last-child {
+            border-bottom: none;
+        }
+
+        .order-label {
+            color: #8bb9fe;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .order-value {
+            font-weight: 700;
+            color: #ffffff;
+            text-align: right;
+            max-width: 60%;
+            word-break: break-word;
+        }
+
+        .order-value.uid {
+            font-family: 'Courier New', monospace;
+            color: #b8dcff;
+            background: rgba(0, 150, 255, 0.12);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.88rem;
+        }
+
+        .order-value.price {
+            color: #ffd966;
+            font-size: 1.15rem;
+        }
+
+        .order-value.uc {
+            color: #7dffb0;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: linear-gradient(95deg, #1fd97a33, #0a9a4f33);
+            border: 1px solid #1fd97a66;
+            color: #7dffb0;
+            padding: 6px 16px;
+            border-radius: 60px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 1.2rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(95deg, #0066ff, #00a6ff);
+            border: none;
+            padding: 14px 22px;
+            border-radius: 60px;
+            font-weight: bold;
+            font-size: 1rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 15px rgba(0, 102, 255, 0.4);
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(95deg, #1a77ff, #1fb4ff);
+            box-shadow: 0 8px 25px rgba(0, 150, 255, 0.6);
+        }
+
+        .note {
+            margin-top: 1.2rem;
+            font-size: 0.82rem;
+            color: #7d94b3;
+            line-height: 1.5;
+        }
+
+        .no-data {
+            display: none;
+            background: #1a1425;
+            border-radius: 1.2rem;
+            padding: 1.2rem;
+            margin-bottom: 1.4rem;
+            color: #ffb3b3;
+            font-size: 0.9rem;
+            border: 1px solid #ff7b7b55;
+        }
+
+        footer {
+            margin-top: 1.5rem;
+            font-size: 0.72rem;
+            color: #4a6f9a;
+            opacity: 0.8;
+            letter-spacing: 0.5px;
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: -20px;
+            z-index: 100;
+            animation: fall linear forwards;
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="glass-panel">
+    <div class="success-icon">
+        <svg viewBox="0 0 52 52">
+            <path d="M14 27 L22 35 L38 18" />
+        </svg>
+    </div>
+
+    <span class="status-badge">✅ PAYMENT SUCCESSFUL</span>
+    <h1>Thank You!</h1>
+    <p class="subtitle">Your UC top-up is being processed</p>
+
+    <div class="order-card" id="orderCard">
+        <div class="order-row">
+            <span class="order-label">Game</span>
+            <span class="order-value">BGMI</span>
+        </div>
+        <div class="order-row">
+            <span class="order-label">Pack</span>
+            <span class="order-value" id="packValue">—</span>
+        </div>
+        <div class="order-row">
+            <span class="order-label">UC Amount</span>
+            <span class="order-value uc" id="ucValue">—</span>
+        </div>
+        <div class="order-row">
+            <span class="order-label">Amount Paid</span>
+            <span class="order-value price" id="amountValue">—</span>
+        </div>
+        <div class="order-row">
+            <span class="order-label">Game UID</span>
+            <span class="order-value uid" id="uidValue">—</span>
+        </div>
+    </div>
+
+    <div class="no-data" id="noData">
+        ⚠️ Order details not found in this session. If you completed a payment, please contact support with your UTR / reference ID.
+    </div>
+
+    <a href="index.html" class="btn-primary">🛍️ Back to Store</a>
+
+    <p class="note">
+        ⚡ UC will be credited to your BGMI account within 5–15 minutes.<br>
+        If not received, contact support with your UID.
+    </p>
+
+    <footer>🔒 Secured by FamGateway • Premium Store</footer>
+</div>
+
+<script>
+    // ---------- CONFETTI ----------
+    function launchConfetti() {
+        const colors = ['#00a6ff', '#1fd97a', '#ffd966', '#ff7b7b', '#b8dcff', '#7dffb0'];
+        for (let i = 0; i < 40; i++) {
+            const c = document.createElement('div');
+            c.className = 'confetti';
+            c.style.left = Math.random() * 100 + 'vw';
+            c.style.background = colors[Math.floor(Math.random() * colors.length)];
+            c.style.animationDuration = (2 + Math.random() * 2) + 's';
+            c.style.animationDelay = (Math.random() * 0.6) + 's';
+            c.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+            c.style.width = (6 + Math.random() * 8) + 'px';
+            c.style.height = (6 + Math.random() * 8) + 'px';
+            document.body.appendChild(c);
+            setTimeout(() => c.remove(), 5000);
+        }
+    }
+
+    // ---------- LOAD ORDER ----------
+    function loadOrder() {
+        let order = null;
+        try {
+            order = JSON.parse(sessionStorage.getItem('bgmi_order') || 'null');
+        } catch (e) {
+            order = null;
+        }
+
+        // Fallback: also check URL params (in case user bookmarked)
+        if (!order) {
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('uid')) {
+                order = {
+                    uid: params.get('uid'),
+                    product: params.get('product') || '—',
+                    amount: params.get('amount') || '—',
+                    uc: params.get('uc') || '—'
+                };
+            }
+        }
+
+        if (order && order.uid) {
+            document.getElementById('packValue').textContent   = order.product || '—';
+            document.getElementById('ucValue').textContent     = order.uc ? Number(order.uc).toLocaleString() + ' UC' : '—';
+            document.getElementById('amountValue').textContent = order.amount ? '₹ ' + order.amount : '—';
+            document.getElementById('uidValue').textContent    = order.uid;
+
+            // Clear order after showing (prevents refresh showing stale data)
+            // Comment out this line if you want data to persist on refresh.
+            setTimeout(() => {
+                try { sessionStorage.removeItem('bgmi_order'); } catch (e) {}
+            }, 1000);
+        } else {
+            document.getElementById('orderCard').style.display = 'none';
+            document.getElementById('noData').style.display = 'block';
+        }
+    }
+
+    // ---------- INIT ----------
+    window.addEventListener('DOMContentLoaded', () => {
+        loadOrder();
+        launchConfetti();
+    });
+</script>
+</body>
+</html>
