@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Midnight Vault | BGMI UC Top-Up</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
+        }
+
+        :root {
+            --yellow: #ffd60a;
+            --yellow-glow: #ffe45c;
+            --pink: #ff2e97;
+            --pink-glow: #ff7ac1;
+            --deep: #0a0508;
+            --glass: rgba(30, 12, 25, 0.55);
+            --glass-border: rgba(255, 46, 151, 0.35);
+            --glass-border-y: rgba(255, 214, 10, 0.35);
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 15% 10%, rgba(255, 46, 151, 0.25), transparent 55%),
+                radial-gradient(circle at 85% 90%, rgba(255, 214, 10, 0.18), transparent 55%),
+                radial-gradient(circle at 50% 50%, #1a0612 0%, #0a0508 60%, #000 100%);
+            background-attachment: fixed;
+            color: #f5e8f0;
+            padding-bottom: 4rem;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.45;
+            z-index: 0;
+            pointer-events: none;
+        }
+        body::before {
+            width: 500px; height: 500px;
+            background: var(--pink);
+            top: -150px; left: -150px;
+            animation: float1 18s ease-in-out infinite;
+        }
+        body::after {
+            width: 450px; height: 450px;
+            background: var(--yellow);
+            bottom: -150px; right: -150px;
+            animation: float2 22s ease-in-out infinite;
+        }
+
+        @keyframes float1 {
+            0%,100% { transform: translate(0,0) scale(1); }
+            50%     { transform: translate(120px, 80px) scale(1.2); }
+        }
+        @keyframes float2 {
+            0%,100% { transform: translate(0,0) scale(1); }
+            50%     { transform: translate(-120px, -60px) scale(1.15); }
+        }
+
+        .grain {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.05;
+            background-image:
+                repeating-linear-gradient(0deg, #fff 0, #fff 1px, transparent 1px, transparent 2px),
+                repeating-linear-gradient(90deg, #fff 0, #fff 1px, transparent 1px, transparent 2px);
+            mix-blend-mode: overlay;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===== BANNER ===== */
+        .top-banner {
+            display: flex;
+            justify-content: center;
+            padding: 1.6rem 1rem 0.6rem;
+            position: relative;
+            z-index: 2;
+        }
+        .banner-wrap { position: relative; display: inline-block; }
+        .banner-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -12px;
+            background: conic-gradient(from 0deg, var(--pink), var(--yellow), var(--pink));
+            border-radius: 30px;
+            filter: blur(24px);
+            opacity: 0.55;
+            z-index: -1;
+            animation: spin 12s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .banner-img {
+            max-width: 88vw;
+            height: auto;
+            max-height: 90px;
+            object-fit: contain;
+            border-radius: 20px;
+            background: rgba(0,0,0,0.35);
+            padding: 6px 22px;
+            border: 1px solid rgba(255, 214, 10, 0.4);
+            box-shadow: 0 0 30px rgba(255, 46, 151, 0.45);
+        }
+
+        /* ===== HERO ===== */
+        .hero { text-align: center; margin: 1.5rem 0 0.5rem; }
+        .hero h1 {
+            font-family: 'Creepster', cursive;
+            font-size: clamp(2.2rem, 6vw, 3.6rem);
+            font-weight: 400;
+            letter-spacing: 3px;
+            background: linear-gradient(120deg, var(--yellow) 0%, var(--pink) 55%, var(--yellow) 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 40px rgba(255, 46, 151, 0.5);
+            animation: shimmer 4s ease-in-out infinite;
+            line-height: 1.1;
+        }
+        @keyframes shimmer {
+            0%,100% { background-position: 0% 50%; }
+            50%     { background-position: 100% 50%; }
+        }
+        .hero p {
+            color: #e8b8d4;
+            font-size: 0.95rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-top: 0.4rem;
+            opacity: 0.8;
+        }
+        .hero .drip {
+            display: block;
+            width: 180px;
+            height: 2px;
+            margin: 1.2rem auto 0;
+            background: linear-gradient(90deg, transparent, var(--pink), var(--yellow), transparent);
+        }
+
+        /* ===== PRODUCTS ===== */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0 2rem;
+        }
+
+        .product-card {
+            position: relative;
+            background: var(--glass);
+            backdrop-filter: blur(22px) saturate(160%);
+            -webkit-backdrop-filter: blur(22px) saturate(160%);
+            border-radius: 28px;
+            padding: 1.6rem;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 50px -18px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.06);
+            transition: transform 0.35s cubic-bezier(0.2,0.9,0.3,1.4), box-shadow 0.35s ease, border-color 0.35s ease;
+            overflow: hidden;
+            isolation: isolate;
+        }
+        .product-card::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 30px;
+            padding: 1px;
+            background: linear-gradient(135deg, var(--pink), transparent 40%, transparent 60%, var(--yellow));
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.6;
+            z-index: -1;
+            transition: opacity 0.35s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-8px) scale(1.015);
+            border-color: var(--yellow);
+            box-shadow:
+                0 30px 60px -18px rgba(255, 46, 151, 0.55),
+                0 0 40px rgba(255, 214, 10, 0.25),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+        .product-card:hover::before { opacity: 1; }
+
+        .product-title {
+            font-family: 'Creepster', cursive;
+            font-size: 1.75rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-align: center;
+            color: var(--yellow);
+            text-shadow: 0 0 20px rgba(255, 214, 10, 0.55);
+            margin-bottom: 0.9rem;
+        }
+
+        .price-block {
+            text-align: center;
+            padding: 1.2rem;
+            border-radius: 20px;
+            background: linear-gradient(145deg, rgba(255, 46, 151, 0.08), rgba(255, 214, 10, 0.05));
+            border: 1px solid rgba(255, 214, 10, 0.25);
+            margin-bottom: 1rem;
+        }
+        .price-block .label {
+            font-size: 0.72rem;
+            letter-spacing: 3px;
+            color: #e9a3c9;
+            text-transform: uppercase;
+        }
+        .price-block .price {
+            font-size: 2.4rem;
+            font-weight: 700;
+            background: linear-gradient(120deg, var(--yellow), #fff8c9, var(--yellow));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 24px rgba(255, 214, 10, 0.6);
+            letter-spacing: 1px;
+            margin: 0.2rem 0;
+        }
+        .price-block .uc { color: #ffb8dd; font-size: 0.9rem; letter-spacing: 1px; }
+
+        .uc-chip {
+            display: block;
+            width: fit-content;
+            margin: 0 auto 1.2rem;
+            padding: 8px 20px;
+            border-radius: 60px;
+            background: rgba(255, 46, 151, 0.12);
+            border: 1px solid rgba(255, 46, 151, 0.45);
+            color: #ffd0e6;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            box-shadow: 0 0 18px rgba(255, 46, 151, 0.25);
+        }
+
+        .btn-buy {
+            position: relative;
+            width: 100%;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 60px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #14060f;
+            cursor: pointer;
+            background: linear-gradient(95deg, var(--yellow), var(--pink));
+            background-size: 200% 200%;
+            box-shadow: 0 8px 24px rgba(255, 46, 151, 0.4), 0 0 30px rgba(255, 214, 10, 0.3);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background-position 0.5s ease;
+            overflow: hidden;
+        }
+        .btn-buy::after {
+            content: '→';
+            position: absolute;
+            right: 22px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            transition: right 0.3s ease;
+        }
+        .btn-buy:hover {
+            transform: translateY(-3px);
+            background-position: 100% 50%;
+            box-shadow: 0 14px 34px rgba(255, 46, 151, 0.6), 0 0 45px rgba(255, 214, 10, 0.5);
+        }
+        .btn-buy:hover::after { right: 14px; }
+
+        /* ===== PAGE MANAGEMENT ===== */
+        .page { display: none; animation: fadeUp 0.4s ease both; }
+        .page.active-page { display: block; }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(14px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== UID PANEL ===== */
+        .uid-wrap { display: flex; justify-content: center; padding: 2rem 0; }
+        .uid-panel {
+            width: 100%;
+            max-width: 560px;
+            background: var(--glass);
+            backdrop-filter: blur(24px) saturate(160%);
+            -webkit-backdrop-filter: blur(24px) saturate(160%);
+            border: 1px solid var(--glass-border-y);
+            border-radius: 30px;
+            padding: 2.2rem 1.8rem;
+            box-shadow:
+                0 30px 60px -18px rgba(0,0,0,0.9),
+                0 0 50px rgba(255, 46, 151, 0.25),
+                inset 0 1px 0 rgba(255,255,255,0.06);
+            position: relative;
+            overflow: hidden;
+        }
+        .uid-panel::before {
+            content: '';
+            position: absolute;
+            top: -60%; left: -20%;
+            width: 140%; height: 200%;
+            background: conic-gradient(from 90deg,
+                transparent 0%,
+                rgba(255, 214, 10, 0.08) 25%,
+                transparent 50%,
+                rgba(255, 46, 151, 0.08) 75%,
+                transparent 100%);
+            animation: spin 20s linear infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .uid-panel > * { position: relative; z-index: 1; }
+
+        .back-btn {
+            float: right;
+            background: none;
+            border: 1px solid rgba(255, 214, 10, 0.4);
+            color: var(--yellow);
+            padding: 6px 14px;
+            border-radius: 60px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: all 0.25s ease;
+        }
+        .back-btn:hover {
+            background: rgba(255, 214, 10, 0.15);
+            box-shadow: 0 0 18px rgba(255, 214, 10, 0.4);
+        }
+
+        .uid-title {
+            font-family: 'Creepster', cursive;
+            font-size: 2.2rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+            background: linear-gradient(120deg, var(--yellow), var(--pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 30px rgba(255, 46, 151, 0.5);
+            margin-bottom: 0.3rem;
+        }
+        .uid-sub {
+            color: #d8a8c8;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .pack-preview {
+            background: linear-gradient(135deg, rgba(255, 46, 151, 0.12), rgba(255, 214, 10, 0.08));
+            border: 1px solid rgba(255, 214, 10, 0.35);
+            padding: 14px 18px;
+            border-radius: 60px;
+            margin-bottom: 1.6rem;
+            text-align: center;
+            font-weight: 600;
+            color: #ffe9f5;
+            font-size: 0.92rem;
+            letter-spacing: 0.5px;
+            box-shadow: inset 0 0 20px rgba(255, 46, 151, 0.12);
+        }
+
+        .uid-input {
+            width: 100%;
+            padding: 15px 22px;
+            font-size: 1rem;
+            color: #fff;
+            background: rgba(20, 6, 15, 0.8);
+            border: 1px solid rgba(255, 214, 10, 0.35);
+            border-radius: 60px;
+            outline: none;
+            transition: all 0.25s ease;
+            letter-spacing: 1px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .uid-input::placeholder { color: #7d5a70; letter-spacing: 0.5px; }
+        .uid-input:focus {
+            border-color: var(--yellow);
+            box-shadow: 0 0 0 3px rgba(255, 214, 10, 0.15), 0 0 25px rgba(255, 214, 10, 0.35);
+            background: rgba(20, 6, 15, 0.95);
+        }
+
+        .btn-proceed {
+            width: 100%;
+            margin-top: 1.6rem;
+            padding: 15px 22px;
+            border: none;
+            border-radius: 60px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #14060f;
+            cursor: pointer;
+            background: linear-gradient(95deg, var(--yellow), var(--pink));
+            background-size: 200% 200%;
+            box-shadow: 0 10px 30px rgba(255, 46, 151, 0.45), 0 0 40px rgba(255, 214, 10, 0.35);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background-position 0.5s ease;
+        }
+        .btn-proceed:hover {
+            transform: translateY(-3px);
+            background-position: 100% 50%;
+            box-shadow: 0 16px 40px rgba(255, 46, 151, 0.65), 0 0 55px rgba(255, 214, 10, 0.55);
+        }
+
+        .uid-note {
+            margin-top: 1.1rem;
+            font-size: 0.82rem;
+            color: #ffb8d4;
+            text-align: center;
+            letter-spacing: 0.5px;
+            opacity: 0.9;
+        }
+
+        .error-box {
+            display: none;
+            background: rgba(255, 46, 151, 0.12);
+            border: 1px solid rgba(255, 46, 151, 0.5);
+            border-radius: 14px;
+            padding: 12px 16px;
+            margin-top: 1rem;
+            color: #ffd0e6;
+            font-size: 0.85rem;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== SUCCESS VIEW ===== */
+        .success-wrap { display: flex; justify-content: center; padding: 2rem 0; }
+        .success-panel {
+            width: 100%;
+            max-width: 540px;
+            background: var(--glass);
+            backdrop-filter: blur(24px) saturate(160%);
+            -webkit-backdrop-filter: blur(24px) saturate(160%);
+            border: 1px solid rgba(31, 217, 122, 0.4);
+            border-radius: 30px;
+            padding: 2.4rem 1.8rem;
+            text-align: center;
+            box-shadow:
+                0 30px 60px -18px rgba(0,0,0,0.9),
+                0 0 50px rgba(31, 217, 122, 0.25),
+                inset 0 1px 0 rgba(255,255,255,0.06);
+            animation: pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes pop {
+            from { opacity: 0; transform: scale(0.9) translateY(20px); }
+            to   { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1.2rem;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #1fd97a, #0a9a4f);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 0 8px rgba(31, 217, 122, 0.15), 0 0 40px rgba(31, 217, 122, 0.6);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 8px rgba(31, 217, 122, 0.15), 0 0 40px rgba(31, 217, 122, 0.6); }
+            50%      { box-shadow: 0 0 0 14px rgba(31, 217, 122, 0.08), 0 0 55px rgba(31, 217, 122, 0.85); }
+        }
+        .success-icon svg {
+            width: 55px; height: 55px;
+            stroke: white;
+            stroke-width: 6;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: draw 0.7s ease-out 0.3s forwards;
+        }
+        @keyframes draw { to { stroke-dashoffset: 0; } }
+
+        .success-panel h1 {
+            font-family: 'Creepster', cursive;
+            font-size: 2.2rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+            background: linear-gradient(120deg, #7dffb0, var(--yellow), #7dffb0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.4rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: linear-gradient(95deg, #1fd97a33, #0a9a4f33);
+            border: 1px solid #1fd97a66;
+            color: #7dffb0;
+            padding: 6px 16px;
+            border-radius: 60px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 1.4rem;
+        }
+
+        .order-card {
+            background: linear-gradient(145deg, rgba(255,46,151,0.08), rgba(255,214,10,0.05));
+            border: 1px solid rgba(255, 214, 10, 0.3);
+            border-radius: 20px;
+            padding: 1.2rem 1.4rem;
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+        .order-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.7rem 0;
+            border-bottom: 1px dashed rgba(255, 214, 10, 0.15);
+            font-size: 0.95rem;
+        }
+        .order-row:last-child { border-bottom: none; }
+
+        .order-label {
+            color: #e9a3c9;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .order-value {
+            font-weight: 700;
+            color: #ffffff;
+            text-align: right;
+            max-width: 60%;
+            word-break: break-word;
+        }
+        .order-value.uid {
+            font-family: 'Courier New', monospace;
+            color: var(--yellow);
+            background: rgba(255, 214, 10, 0.12);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.88rem;
+        }
+        .order-value.price { color: var(--pink-glow); font-size: 1.15rem; }
+        .order-value.uc { color: #7dffb0; }
+
+        .btn-back-store {
+            display: inline-block;
+            padding: 14px 22px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #14060f;
+            cursor: pointer;
+            background: linear-gradient(95deg, var(--yellow), var(--pink));
+            background-size: 200% 200%;
+            text-decoration: none;
+            border: none;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(255, 46, 151, 0.45), 0 0 40px rgba(255, 214, 10, 0.35);
+            transition: transform 0.25s ease, background-position 0.5s ease, box-shadow 0.25s ease;
+        }
+        .btn-back-store:hover {
+            transform: translateY(-3px);
+            background-position: 100% 50%;
+            box-shadow: 0 16px 40px rgba(255, 46, 151, 0.65), 0 0 55px rgba(255, 214, 10, 0.55);
+        }
+
+        .success-note {
+            margin-top: 1.2rem;
+            font-size: 0.82rem;
+            color: #d8a8c8;
+            line-height: 1.5;
+        }
+
+        /* ===== LOADER ===== */
+        .loader-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 5, 8, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .loader-overlay.show { display: flex; }
+
+        .spinner {
+            width: 70px; height: 70px;
+            border: 4px solid rgba(255, 214, 10, 0.15);
+            border-top-color: var(--yellow);
+            border-right-color: var(--pink);
+            border-radius: 50%;
+            animation: spin 0.9s linear infinite;
+            box-shadow: 0 0 30px rgba(255, 46, 151, 0.5);
+        }
+        .loader-text {
+            margin-top: 1.4rem;
+            color: var(--yellow);
+            font-family: 'Creepster', cursive;
+            font-size: 1.4rem;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(255, 214, 10, 0.7);
+            animation: pulseTxt 1.5s ease-in-out infinite;
+        }
+        @keyframes pulseTxt { 0%,100% { opacity: 0.7; } 50% { opacity: 1; } }
+
+        /* ===== FOOTER ===== */
+        .site-footer {
+            text-align: center;
+            margin-top: 4rem;
+            font-size: 0.78rem;
+            color: #8f6a80;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+        .site-footer span { color: var(--pink); }
+
+        /* ===== CONFETTI ===== */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: -20px;
+            z-index: 100;
+            animation: fall linear forwards;
+            pointer-events: none;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #0a0508; }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--pink), var(--yellow));
+            border-radius: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { letter-spacing: 2px; }
+            .product-title { font-size: 1.5rem; }
+            .uid-title { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="grain"></div>
+
+<div class="top-banner">
+    <div class="banner-wrap">
+        <img class="banner-img"
+             src="https://i.postimg.cc/6QhgC3kb/image-search-1752245026702.png"
+             alt="Midnight Vault Banner"
+             onerror="this.src='https://via.placeholder.com/400x80/14060f/ffd60a?text=Midnight+Vault'">
+    </div>
+</div>
+
+<div class="container">
+    <!-- ============ PAGE 1: PRODUCTS ============ -->
+    <div id="indexPage" class="page active-page">
+        <div class="hero">
+            <h1>Midnight Vault</h1>
+            <p>BGMI UC • Top-Up Ritual</p>
+            <span class="drip"></span>
+        </div>
+
+        <div class="products-grid" id="productList"></div>
+
+        <div class="site-footer">
+            <span>⚡</span> Secure UPI Checkout • Instant Delivery <span>⚡</span>
+        </div>
+    </div>
+
+    <!-- ============ PAGE 2: UID ENTRY ============ -->
+    <div id="uidPage" class="page">
+        <div class="uid-wrap">
+            <div class="uid-panel">
+                <button class="back-btn" id="backToProductsFromUid">← Back</button>
+                <h2 class="uid-title">Summon the UID</h2>
+                <p class="uid-sub">Your in-game identity is required for the ritual.</p>
+
+                <div class="pack-preview" id="selectedPackPreview"></div>
+
+                <input type="text" id="uidInput" class="uid-input"
+                       placeholder="Enter your BGMI UID (e.g., 5123456789)"
+                       autocomplete="off" inputmode="numeric">
+
+                <button class="btn-proceed" id="proceedToPaymentBtn">
+                    Proceed to Payment
+                </button>
+
+                <p class="uid-note">⚠️ Double-check your UID — UC cannot be reversed.</p>
+                <div class="error-box" id="uidErrorBox"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ PAGE 3: SUCCESS VIEW ============ -->
+    <div id="successPage" class="page">
+        <div class="success-wrap">
+            <div class="success-panel">
+                <div class="success-icon">
+                    <svg viewBox="0 0 52 52">
+                        <path d="M14 27 L22 35 L38 18" />
+                    </svg>
+                </div>
+
+                <span class="status-badge">✅ PAYMENT SUCCESSFUL</span>
+                <h1>Thank You!</h1>
+
+                <div class="order-card" id="orderCard">
+                    <div class="order-row">
+                        <span class="order-label">Game</span>
+                        <span class="order-value">BGMI</span>
+                    </div>
+                    <div class="order-row">
+                        <span class="order-label">Pack</span>
+                        <span class="order-value" id="packValue">—</span>
+                    </div>
+                    <div class="order-row">
+                        <span class="order-label">UC Amount</span>
+                        <span class="order-value uc" id="ucValue">—</span>
+                    </div>
+                    <div class="order-row">
+                        <span class="order-label">Amount Paid</span>
+                        <span class="order-value price" id="amountValue">—</span>
+                    </div>
+                    <div class="order-row">
+                        <span class="order-label">Game UID</span>
+                        <span class="order-value uid" id="uidValue">—</span>
+                    </div>
+                </div>
+
+                <div class="error-box" id="noData" style="margin-bottom:1.2rem; display:none;">
+                    ⚠️ Order details not found. If you completed a payment, contact support with your UTR.
+                </div>
+
+                <button class="btn-back-store" id="backToStoreBtn">🛍️ Back to Store</button>
+
+                <p class="success-note">
+                    ⚡ UC will be credited to your BGMI account within 5–15 minutes.<br>
+                    If not received, contact support with your UID.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Loader -->
+<div class="loader-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+    <div class="loader-text">Opening Portal...</div>
+</div>
+
+<script>
+    // ---------- PRODUCTS (each with its own payment link) ----------
+    const products = [
+        { id: 1, name: "Starter Pack",    price: 250,  uc: 3850,  link: "https://fam.trustupi.site/pay/fg_jp8pallo" },
+        { id: 2, name: "Elite Bundle",    price: 450,  uc: 8100,  link: "https://fam.trustupi.site/pay/fg_vqtqd6d7" },
+        { id: 3, name: "Pro Booster",     price: 850,  uc: 17000, link: "https://fam.trustupi.site/pay/fg_i1w15c4y" },
+        { id: 4, name: "Ultra Pack",      price: 1550, uc: 35000, link: "https://fam.trustupi.site/pay/fg_aalhqscj" },
+        { id: 5, name: "Legendary Vault", price: 3100, uc: 80000, link: "https://fam.trustupi.site/pay/fg_7mwa0ui7" }
+    ];
+
+    let selectedProduct = null;
+    let collectedUID = "";
+
+    // ---------- HELPERS ----------
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+        document.getElementById(pageId).classList.add('active-page');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showLoader(show) {
+        document.getElementById('loadingOverlay').classList.toggle('show', show);
+    }
+
+    function showUidError(msg) {
+        const box = document.getElementById('uidErrorBox');
+        if (!msg) {
+            box.style.display = 'none';
+            box.textContent = '';
+        } else {
+            box.style.display = 'block';
+            box.textContent = msg;
+        }
+    }
+
+    function launchConfetti() {
+        const colors = ['#00a6ff', '#1fd97a', '#ffd60a', '#ff2e97', '#b8dcff', '#7dffb0'];
+        for (let i = 0; i < 40; i++) {
+            const c = document.createElement('div');
+            c.className = 'confetti';
+            c.style.left = Math.random() * 100 + 'vw';
+            c.style.background = colors[Math.floor(Math.random() * colors.length)];
+            c.style.animationDuration = (2 + Math.random() * 2) + 's';
+            c.style.animationDelay = (Math.random() * 0.6) + 's';
+            c.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+            c.style.width = (6 + Math.random() * 8) + 'px';
+            c.style.height = (6 + Math.random() * 8) + 'px';
+            document.body.appendChild(c);
+            setTimeout(() => c.remove(), 5000);
+        }
+    }
+
+    // ---------- RENDER PRODUCTS ----------
+    function renderProducts() {
+        const container = document.getElementById('productList');
+        container.innerHTML = '';
+
+        products.forEach(product => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <div class="product-title">${product.name}</div>
+                <div class="price-block">
+                    <div class="label">Price</div>
+                    <div class="price">₹ ${product.price}</div>
+                    <div class="uc">= ${product.uc.toLocaleString()} UC</div>
+                </div>
+                <span class="uc-chip">🎮 ${product.uc.toLocaleString()} Unknown Cash</span>
+                <button class="btn-buy" data-product-id="${product.id}">Buy Now</button>
+            `;
+            container.appendChild(card);
+        });
+
+        document.querySelectorAll('.btn-buy').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const id = parseInt(this.getAttribute('data-product-id'));
+                selectedProduct = products.find(p => p.id === id);
+                goToUidPage();
+            });
+        });
+    }
+
+    // ---------- GO TO UID PAGE ----------
+    function goToUidPage() {
+        if (!selectedProduct) return;
+        document.getElementById('selectedPackPreview').innerHTML =
+            `🩸 ${selectedProduct.name} &nbsp;•&nbsp; ₹${selectedProduct.price} &nbsp;=&nbsp; ${selectedProduct.uc.toLocaleString()} UC`;
+        document.getElementById('uidInput').value = '';
+        collectedUID = '';
+        showUidError('');
+        showPage('uidPage');
+    }
+
+    // ---------- PROCEED → REDIRECT TO PRODUCT-SPECIFIC PAYMENT LINK ----------
+    function proceedToPayment() {
+        const uidValue = document.getElementById('uidInput').value.trim();
+
+        if (uidValue === "") {
+            showUidError("❌ Please enter your BGMI UID to continue.");
+            return;
+        }
+        if (!/^\d{5,15}$/.test(uidValue)) {
+            showUidError("⚠️ UID should be numeric (5–15 digits). Please check.");
+            return;
+        }
+
+        collectedUID = uidValue;
+        showUidError('');
+        showLoader(true);
+
+        // Save order in sessionStorage for the success view (same-tab navigation)
+        try {
+            sessionStorage.setItem('bgmi_order', JSON.stringify({
+                uid: collectedUID,
+                product: selectedProduct.name,
+                amount: selectedProduct.price,
+                uc: selectedProduct.uc
+            }));
+        } catch (e) {}
+
+        // Build final redirect link — query params let the gateway (and our success.html on Vercel) see the UID + pack
+        const params = new URLSearchParams({
+            uid: collectedUID,
+            product: selectedProduct.name,
+            amount: selectedProduct.price,
+            uc: selectedProduct.uc
+        });
+
+        const targetUrl = `${selectedProduct.link}${selectedProduct.link.includes('?') ? '&' : '?'}${params.toString()}`;
+
+        setTimeout(() => {
+            window.location.href = targetUrl;
+        }, 700);
+    }
+
+    // ---------- LOAD SUCCESS VIEW (when redirected back with ?uid=...) ----------
+    function loadSuccessView() {
+        const params = new URLSearchParams(window.location.search);
+
+        let order = null;
+        if (params.get('uid')) {
+            order = {
+                uid: params.get('uid'),
+                product: params.get('product') || '—',
+                amount: params.get('amount') || '—',
+                uc: params.get('uc') || '—'
+            };
+        } else {
+            try {
+                order = JSON.parse(sessionStorage.getItem('bgmi_order') || 'null');
+            } catch (e) { order = null; }
+        }
+
+        showPage('successPage');
+
+        if (order && order.uid) {
+            document.getElementById('packValue').textContent   = order.product || '—';
+            document.getElementById('ucValue').textContent     = order.uc ? Number(order.uc).toLocaleString() + ' UC' : '—';
+            document.getElementById('amountValue').textContent = order.amount ? '₹ ' + order.amount : '—';
+            document.getElementById('uidValue').textContent    = order.uid;
+            document.getElementById('orderCard').style.display = 'block';
+            document.getElementById('noData').style.display = 'none';
+        } else {
+            document.getElementById('orderCard').style.display = 'none';
+            document.getElementById('noData').style.display = 'block';
+        }
+
+        launchConfetti();
+    }
+
+    // ---------- EVENT LISTENERS ----------
+    function setupEventListeners() {
+        document.getElementById('backToProductsFromUid').addEventListener('click', () => {
+            selectedProduct = null;
+            collectedUID = '';
+            showPage('indexPage');
+        });
+
+        document.getElementById('proceedToPaymentBtn').addEventListener('click', proceedToPayment);
+
+        document.getElementById('uidInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                proceedToPayment();
+            }
+        });
+
+        document.getElementById('backToStoreBtn').addEventListener('click', () => {
+            // Clear query string & session, return to store
+            try { sessionStorage.removeItem('bgmi_order'); } catch (e) {}
+            window.location.href = window.location.pathname; // strips query string
+        });
+    }
+
+    // ---------- INIT ----------
+    window.addEventListener('DOMContentLoaded', () => {
+        // If URL has ?uid=... → show success view, otherwise normal store
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('uid') || params.get('payment') === 'success') {
+            loadSuccessView();
+        } else {
+            renderProducts();
+            setupEventListeners();
+        }
+
+        // Attach listeners regardless (in case user navigates back)
+        setupEventListeners();
+    });
+</script>
+</body>
+</html>
